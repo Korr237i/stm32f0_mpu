@@ -1,8 +1,8 @@
 PyQt5
-pyqt5-tools
 pyserial
 pyqtgraph
 pyquaternion
 numpy-stl
 PyOpenGl
 numpy
+pyqt5

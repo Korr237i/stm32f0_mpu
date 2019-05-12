@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "core/stm32f051x8.h"
 
@@ -22,18 +23,8 @@
 #include "usart.h"
 
 
-// #define HCLK_FREC   48000000
 // #define MPU         1
 // #define BUTTON
-
-
-// extern uint32_t time_ms;
-// extern uint32_t systick_cnt;
-// extern const uint32_t systick_cnt_top;
-
-// uint32_t time_ms = 0;
-// uint32_t systick_cnt = 0;
-// const uint32_t systick_cnt_top = 1000000;
 
 
 // void EXTI0_1_IRQHandler()
@@ -59,7 +50,7 @@
 
 int main(void)
 {
-    // int error = 0;
+    int error = 0;
 
     /*
      * Hardware init
@@ -70,37 +61,37 @@ int main(void)
     usart_config();
     i2c_config();
     printf_config();
-
-    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
     systick_config();
-    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
-
-    // /*
-    //  * MPU9255 init
-    //  */
-    // error = mpu9255_init();
-    // xprintf("mpu init error: %d\n", error);
 
 
-    // int16_t raw_accelData[3] = {};
-    // int16_t raw_gyroData[3] = {};
-    // dataType accelData[3] = {};
-    // while(1)
-    // {
-    //     if (getSystick_cnt() == 0)
-    //     {
-    //         // xprintf("---------------------------------------\n");
-    //         xprintf("time: %d\n", 0/*getTime_s()*/);
-
-    //         error = mpu9255_readIMU(raw_accelData, raw_gyroData);
-    //         mpu9255_recalcAccel(raw_accelData, accelData);
+    /*
+     * Structures init
+     */
+    memset(&stateIMU_rsc, 0x00, sizeof(stateIMU_rsc));
+    memset(&stateIMU_isc, 0x00, sizeof(stateIMU_isc));
+    state_msg_t msg = {};
 
 
+    /*
+     * MPU9255 init
+     */
+    error = mpu9255_init();
+    xprintf("mpu init error: %d\n", error);
 
-    //         // xprintf("%f %f %f\n", accelData[0], accelData[1], accelData[2]);
-    //         // xprintf("error: %d\n", error);
-    //     }
-    // }
+
+    int16_t raw_accelData[3] = {};
+    int16_t raw_gyroData[3] = {};
+
+    while(1)
+    {
+        mpu9255_readIMU(raw_accelData,      raw_gyroData);
+        mpu9255_recalcAccel(raw_accelData,  stateIMU_rsc.accel);
+        mpu9255_recalcGyro(raw_gyroData,    stateIMU_rsc.gyro);
+
+        stateMsg_fill(&msg);
+        stateMsg_send(&msg);
+        // xprintf("crc: %d", msg.crc);
+    }
 
     return 0;
 }
