@@ -10,7 +10,8 @@ void gpio_config();
 
 void exti_config(void);
 
-void systick_config(uint32_t HCLKFrequency, uint32_t Ticks);
+// void systick_config(void);
+// void systick_config(uint32_t HCLKFrequency, uint32_t Ticks);
 
 void usart_config();
 

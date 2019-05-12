@@ -9,10 +9,6 @@
 #define PROCESS_ERROR(x) if (0 != (error = (x))) { goto end; }
 
 
-extern uint32_t time_ms;
-extern uint32_t systick_cnt;
-extern const uint32_t systick_cnt_top;
-
 // uint32_t time_ms = 0;
 // uint32_t systick_cnt = 0;
 // const uint32_t systick_cnt_top = 1000000;
@@ -63,15 +59,13 @@ typedef struct
 } state_msg_t;
 
 
-extern stateIMU_rsc_t stateIMU_rsc;
-extern stateIMU_isc_t stateIMU_isc;
+// extern stateIMU_rsc_t stateIMU_rsc;
+// extern stateIMU_isc_t stateIMU_isc;
 
 
-float getTime_s();
+// void stateMsg_fill(state_msg_t* msg);
 
-void stateMsg_fill(state_msg_t* msg);
-
-void stateMsg_send(state_msg_t* msg);
+// void stateMsg_send(state_msg_t* msg);
 
 
 #endif /* STATE */

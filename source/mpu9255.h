@@ -10,7 +10,7 @@
 
 // #include "state.h"
 // #include <math.h>
-// #include <stdint.h>
+#include <stdint.h>
 
 #define I2C_TIMEOUT 1000
 
@@ -143,7 +143,7 @@ int mpu9255_readCompass(int16_t * raw_compassData);
  *      raw_accelData   - сырые показания акселерометра
  *      accelData       - преобразованные показания акселерометра (в g)
  */
-void mpu9255_recalcAccel(const int16_t* raw_accelData, float* accelData);
+void mpu9255_recalcAccel(const int16_t* raw_accelData, dataType* accelData);
 
 /*
  *  Пересчет сырых показаний гироскопа
@@ -151,7 +151,7 @@ void mpu9255_recalcAccel(const int16_t* raw_accelData, float* accelData);
  *      raw_gyroData    - сырые показания гироскопа
  *      gyroData        - преобразованные показания гироскопа (в 1/c)
  */
-void mpu9255_recalcGyro(const int16_t* raw_gyroData, float* gyroData);
+void mpu9255_recalcGyro(const int16_t* raw_gyroData, dataType* gyroData);
 
 /*
  *  Пересчет сырых показаний магнитометра
@@ -159,7 +159,7 @@ void mpu9255_recalcGyro(const int16_t* raw_gyroData, float* gyroData);
  *      raw_compassData - сырые показания магнитометра
  *      compassData     - преобразованные показания магнитометра (в мТл)
  */
-void mpu9255_recalcCompass(const int16_t* raw_compassData, float* compassData);
+void mpu9255_recalcCompass(const int16_t* raw_compassData, dataType* compassData);
 
 /*
  *  Инициализация mpu9255
