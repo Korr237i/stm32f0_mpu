@@ -1,14 +1,14 @@
-#include "core/stm32f051x8.h"
+#include "../core/stm32f051x8.h"
 
-#include "plib/stm32f0xx_ll_rcc.h"
-#include "plib/stm32f0xx_ll_system.h"
-#include "plib/stm32f0xx_ll_bus.h"
-#include "plib/stm32f0xx_ll_gpio.h"
-#include "plib/stm32f0xx_ll_exti.h"
-#include "plib/stm32f0xx_ll_utils.h"
-#include "plib/stm32f0xx_ll_cortex.h"
-#include "plib/stm32f0xx_ll_usart.h"
-#include "plib/stm32f0xx_ll_i2c.h"
+#include "../plib/stm32f0xx_ll_rcc.h"
+#include "../plib/stm32f0xx_ll_system.h"
+#include "../plib/stm32f0xx_ll_bus.h"
+#include "../plib/stm32f0xx_ll_gpio.h"
+#include "../plib/stm32f0xx_ll_exti.h"
+#include "../plib/stm32f0xx_ll_utils.h"
+#include "../plib/stm32f0xx_ll_cortex.h"
+#include "../plib/stm32f0xx_ll_usart.h"
+#include "../plib/stm32f0xx_ll_i2c.h"
 
 
 /**

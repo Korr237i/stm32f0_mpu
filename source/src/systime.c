@@ -1,11 +1,11 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "core/stm32f051x8.h"
+#include "../core/stm32f051x8.h"
 
-#include "plib/stm32f0xx_ll_system.h"
-#include "plib/stm32f0xx_ll_utils.h"
-#include "plib/stm32f0xx_ll_cortex.h"
+#include "../plib/stm32f0xx_ll_system.h"
+#include "../plib/stm32f0xx_ll_utils.h"
+#include "../plib/stm32f0xx_ll_cortex.h"
 
 #define HCLK_FREC   48000000
 

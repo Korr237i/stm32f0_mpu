@@ -10,10 +10,10 @@
 #include <math.h>
 #include <stdint.h>
 
-#include "core/stm32f051x8.h"
-#include "plib/stm32f0xx_ll_i2c.h"
+#include "../../core/stm32f051x8.h"
+#include "../../plib/stm32f0xx_ll_i2c.h"
 
-#include "state.h"
+#include "../state.h"
 #include "mpu9255.h"
 
 // #include <sofa.h>

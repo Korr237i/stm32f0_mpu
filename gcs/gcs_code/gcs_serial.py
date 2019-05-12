@@ -3,8 +3,8 @@ import serial
 
 
 ##############################################
-port = "COM6"           # порт для подключения
-baudrate = 256000       # частота передачи
+port = "/dev/ttyUSB0"    # порт для подключения
+baudrate = 115200   # частота передачи
 ##############################################
 
 class Packet:
@@ -44,7 +44,7 @@ class Connector:
                     baudrate=_baudrate,
                     parity=serial.PARITY_NONE,
                     stopbits=serial.STOPBITS_ONE,
-                    bytesize=serial.SEVENBITS,
+                    bytesize=serial.EIGHTBITS,
                     xonxoff=False,
                     rtscts=False,
                     dsrdtr=False

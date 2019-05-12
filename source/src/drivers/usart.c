@@ -1,8 +1,8 @@
-#include "core/stm32f051x8.h"
+#include "../../core/stm32f051x8.h"
 
-#include "plib/stm32f0xx_ll_usart.h"
+#include "../../plib/stm32f0xx_ll_usart.h"
 
-#include "lib/xprintf.h"
+#include "../../lib/xprintf.h"
 #include "usart.h"
 
 

@@ -1,7 +1,7 @@
 #include <stdint.h>
 
-#include "core/stm32f051x8.h"
-#include "plib/stm32f0xx_ll_usart.h"
+#include "../core/stm32f051x8.h"
+#include "../plib/stm32f0xx_ll_usart.h"
 
 #include "systime.h"
 #include "state.h"

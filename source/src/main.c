@@ -2,25 +2,25 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "core/stm32f051x8.h"
+#include "../core/stm32f051x8.h"
 
-#include "plib/stm32f0xx_ll_rcc.h"
-#include "plib/stm32f0xx_ll_system.h"
-#include "plib/stm32f0xx_ll_bus.h"
-#include "plib/stm32f0xx_ll_gpio.h"
-#include "plib/stm32f0xx_ll_exti.h"
-#include "plib/stm32f0xx_ll_utils.h"
-#include "plib/stm32f0xx_ll_cortex.h"
-#include "plib/stm32f0xx_ll_usart.h"
-#include "plib/stm32f0xx_ll_i2c.h"
+#include "../plib/stm32f0xx_ll_rcc.h"
+#include "../plib/stm32f0xx_ll_system.h"
+#include "../plib/stm32f0xx_ll_bus.h"
+#include "../plib/stm32f0xx_ll_gpio.h"
+#include "../plib/stm32f0xx_ll_exti.h"
+#include "../plib/stm32f0xx_ll_utils.h"
+#include "../plib/stm32f0xx_ll_cortex.h"
+#include "../plib/stm32f0xx_ll_usart.h"
+#include "../plib/stm32f0xx_ll_i2c.h"
 
 #include "state.h"
 #include "systime.h"
 #include "initialise_hardware.h"
 
-#include "lib/xprintf.h"
-#include "mpu9255.h"
-#include "usart.h"
+#include "../lib/xprintf.h"
+#include "drivers/mpu9255.h"
+#include "drivers/usart.h"
 
 
 // #define MPU         1
