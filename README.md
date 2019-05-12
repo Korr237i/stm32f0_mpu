@@ -1,7 +1,13 @@
-# stm32f0_mpu
-STM32F0 project of working with MPU9255 based on DREC course.
+# STM32F0 MPU
+### STM32F0 project based on [DREC](https://mipt.ru/drec/) course.
+The idea of the project is to get data from MPU9255 IMU and use Sebastian Madgwick's algorithm with quaternions to plot device's orientation.
 
-GCS installation in PyCharm (made by [dll31](https://github.com/dll31)).
+## Folders
+Source folder includes needed files for stm32f0 and source code of the project.
+
+GCS folder - ground control system that allows you to plot graphs and device's orientation (was made by [dll31](https://github.com/dll31)).
+
+## GCS installation in PyCharm.
 1. Move to gcs folder
 2. Make `pip install -r requirements.txt`
 3. Make gcs directory "source root" (PyCharm)
