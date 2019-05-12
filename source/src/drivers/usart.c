@@ -1,12 +1,10 @@
-#include "core/stm32f051x8.h"
+#include "../../core/stm32f051x8.h"
 
-#include "plib/stm32f0xx_ll_rcc.h"
-#include "plib/stm32f0xx_ll_system.h"
-#include "plib/stm32f0xx_ll_bus.h"
-#include "plib/stm32f0xx_ll_gpio.h"
-#include "plib/stm32f0xx_ll_usart.h"
+#include "../../plib/stm32f0xx_ll_usart.h"
 
-#include "lib/xprintf.h"
+#include "../library/xprintf.h"
+#include "usart.h"
+
 
 
 char usart_getc(void)
@@ -15,12 +13,14 @@ char usart_getc(void)
     return LL_USART_ReceiveData8(USART1);
 }
 
+
 void usart_putc(char symbol)
 {
     while (!LL_USART_IsActiveFlag_TXE(USART1));
     LL_USART_TransmitData8(USART1, symbol);
     while (!LL_USART_IsActiveFlag_TC(USART1));
 }
+
 
 /*
  * Set callback for out device

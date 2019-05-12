@@ -2,7 +2,7 @@
  * MPU9255.h
  *
  *  Created on: 21 янв. 2017 г.
- *      Author: developer
+ *      Author: korr237i
  */
 
 #ifndef MPU9255_H_
@@ -48,10 +48,6 @@
 
 #define ACCEL_RANGE         1           //2g - 00, 4g - 01, 8g - 10, 16g - 11
 #define GYRO_RANGE          0           //250degps - 00, 500degps - 01, 1000degps - 10, 2000degps - 11
-
-
-// if error set value and go to end
-#define PROCESS_ERROR(x) if (0 != (error = (x))) { goto end; }
 
 
 /*#################################################*/

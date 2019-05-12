@@ -10,11 +10,11 @@
 #include <math.h>
 #include <stdint.h>
 
-#include "core/stm32f051x8.h"
-#include "plib/stm32f0xx_ll_i2c.h"
+#include "../../core/stm32f051x8.h"
+#include "../../plib/stm32f0xx_ll_i2c.h"
 
+#include "../state.h"
 #include "mpu9255.h"
-#include "lib/xprintf.h"
 
 // #include <sofa.h>
 
@@ -217,9 +217,9 @@ void mpu9255_recalcAccel(const int16_t * raw_accelData, float * accelData)
 {
     float _accelData[3] = {0, 0, 0};
 
-    _accelData[0] = - (float)(raw_accelData[0]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
-    _accelData[1] =   (float)(raw_accelData[2]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
-    _accelData[2] =   (float)(raw_accelData[1]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
+    _accelData[0] = (float)(raw_accelData[0]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
+    _accelData[1] = (float)(raw_accelData[1]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
+    _accelData[2] = (float)(raw_accelData[2]) * MPU9255_ACCEL_SCALE_FACTOR * 2;//* pow(2, ACCEL_RANGE);
 
 //  float offset_vector[3] = {X_ACCEL_OFFSET, Y_ACCEL_OFFSET, Z_ACCEL_OFFSET};
 //  float transform_matrix[3][3] =  {{XX_ACCEL_TRANSFORM_MATIX, XY_ACCEL_TRANSFORM_MATIX, XZ_ACCEL_TRANSFORM_MATIX},
@@ -236,9 +236,9 @@ void mpu9255_recalcAccel(const int16_t * raw_accelData, float * accelData)
 
 void mpu9255_recalcGyro(const int16_t * raw_gyroData, float * gyroData)
 {
-    gyroData[0] = - (float)(raw_gyroData[0]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
-    gyroData[1] =   (float)(raw_gyroData[2]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
-    gyroData[2] =   (float)(raw_gyroData[1]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
+    gyroData[0] = (float)(raw_gyroData[0]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
+    gyroData[1] = (float)(raw_gyroData[1]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
+    gyroData[2] = (float)(raw_gyroData[2]) * MPU9255_GYRO_SCALE_FACTOR * pow(2, GYRO_RANGE);
 }
 
 void mpu9255_recalcCompass(const int16_t * raw_compassData, float * compassData)
