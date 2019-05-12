@@ -11,7 +11,36 @@
 
 extern uint32_t time_ms;
 extern uint32_t systick_cnt;
-extern uint32_t systick_cnt_top;
+extern const uint32_t systick_cnt_top;
+
+// uint32_t time_ms = 0;
+// uint32_t systick_cnt = 0;
+// const uint32_t systick_cnt_top = 1000000;
+
+
+//  IMU data in RSC (related system of coordinates)
+typedef struct {
+    dataType accel[3];
+    dataType gyro[3];
+    dataType magn[3];
+} stateIMU_rsc_t;
+
+
+//  orientation and position of device in ISC (inertial system of coordinates)
+typedef struct {
+    //  IMU data
+    dataType accel[3];
+    dataType gyro[3];
+    dataType magn[3];
+
+    //  position
+    dataType velocities[3];
+    dataType coordinates[3];
+
+    //  orientation
+    dataType quaternion[4];
+
+} stateIMU_isc_t;
 
 
 typedef struct
@@ -23,9 +52,9 @@ typedef struct
 
     float time;
 
-    dataType accelData[3];
-    dataType gyroData[3];
-    dataType magnData[3];
+    dataType accel[3];
+    dataType gyro[3];
+    dataType magn[3];
 
     dataType quaternion[4];
 
@@ -34,13 +63,11 @@ typedef struct
 } state_msg_t;
 
 
-float getTime_ms()
-{
-    int32_t local_systick_cnt = systick_cnt;
-    uint32_t local_time_ms = time_ms;
-    return (((float)local_time_ms / 1000) + ((float)local_systick_cnt / systick_cnt_top));
-}
+extern stateIMU_rsc_t stateIMU_rsc;
+extern stateIMU_isc_t stateIMU_isc;
 
+
+float getTime_s();
 
 void stateMsg_fill(state_msg_t* msg);
 

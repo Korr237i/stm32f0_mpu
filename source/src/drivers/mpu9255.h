@@ -9,8 +9,8 @@
 #define MPU9255_H_
 
 // #include "state.h"
-#include <math.h>
-#include <stdint.h>
+// #include <math.h>
+// #include <stdint.h>
 
 #define I2C_TIMEOUT 1000
 

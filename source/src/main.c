@@ -26,10 +26,14 @@
 // #define BUTTON
 
 
-uint32_t time_ms = 0;
+extern uint32_t time_ms;
+extern uint32_t systick_cnt;
+extern const uint32_t systick_cnt_top;
 
-uint32_t systick_cnt = 0;
-uint32_t systick_cnt_top = 1000000;
+
+// uint32_t time_ms = 0;
+// uint32_t systick_cnt = 0;
+// const uint32_t systick_cnt_top = 1000000;
 
 
 void EXTI0_1_IRQHandler()
@@ -63,6 +67,8 @@ void SysTick_Handler(void)
 
 int main(void)
 {
+    time_ms = 0;
+    systick_cnt = 0;
     int error = 0;
 
     /*
@@ -71,10 +77,17 @@ int main(void)
     rcc_config();
     gpio_config();
     exti_config();
-    systick_config(HCLK_FREC, systick_cnt_top);
+
+    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+
+    systick_config(HCLK_FREC, 1000000);
+
+    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+
     usart_config(USART1);
     i2c_config(I2C1);
     printf_config();
+
 
     /*
      * MPU9255 init
@@ -91,7 +104,7 @@ int main(void)
         if ((systick_cnt % systick_cnt_top) == 0)
         {
             // xprintf("---------------------------------------\n");
-            // xprintf("time: %d\n", time_ms);
+            xprintf("time: %d\n", 0/*getTime_s()*/);
 
             error = mpu9255_readIMU(raw_accelData, raw_gyroData);
             mpu9255_recalcAccel(raw_accelData, accelData);

@@ -117,98 +117,92 @@ void systick_config(uint32_t HCLKFrequency, uint32_t Ticks)
 /*
  * Initialize USART module and associated pins
  */
-void usart_config(USART_TypeDef *USARTx)
+void usart_config()
 {
-    if (USARTx == USART1)
-    {
-        /*
-         * Setting USART pins
-         */
-        LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
-        //USART1_TX
-        LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_9, LL_GPIO_MODE_ALTERNATE);
-        LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_9, LL_GPIO_AF_1);
-        LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_9, LL_GPIO_SPEED_FREQ_HIGH);
-        //USART1_RX
-        LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE);
-        LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_10, LL_GPIO_AF_1);
-        LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_HIGH);
-        /*
-         * USART Set clock source
-         */
-        LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_USART1);
-        LL_RCC_SetUSARTClockSource(LL_RCC_USART1_CLKSOURCE_PCLK1);
-        /*
-         * USART Setting
-         */
-        LL_USART_SetTransferDirection(USART1, LL_USART_DIRECTION_TX_RX);
-        LL_USART_SetParity(USART1, LL_USART_PARITY_NONE);
-        LL_USART_SetDataWidth(USART1, LL_USART_DATAWIDTH_8B);
-        LL_USART_SetStopBitsLength(USART1, LL_USART_STOPBITS_1);
-        LL_USART_SetTransferBitOrder(USART1, LL_USART_BITORDER_LSBFIRST);
-        LL_USART_SetBaudRate(USART1, SystemCoreClock,
-                             LL_USART_OVERSAMPLING_16, 115200);
-        /*
-         * USART turn on
-         */
-        LL_USART_Enable(USART1);
-        while (!(LL_USART_IsActiveFlag_TEACK(USART1) &&
-                 LL_USART_IsActiveFlag_REACK(USART1)));
-    }
+    /*
+     * Setting USART pins
+     */
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+    //USART1_TX
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_9, LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_9, LL_GPIO_AF_1);
+    LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_9, LL_GPIO_SPEED_FREQ_HIGH);
+    //USART1_RX
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_10, LL_GPIO_AF_1);
+    LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_HIGH);
+    /*
+     * USART Set clock source
+     */
+    LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_USART1);
+    LL_RCC_SetUSARTClockSource(LL_RCC_USART1_CLKSOURCE_PCLK1);
+    /*
+     * USART Setting
+     */
+    LL_USART_SetTransferDirection(USART1, LL_USART_DIRECTION_TX_RX);
+    LL_USART_SetParity(USART1, LL_USART_PARITY_NONE);
+    LL_USART_SetDataWidth(USART1, LL_USART_DATAWIDTH_8B);
+    LL_USART_SetStopBitsLength(USART1, LL_USART_STOPBITS_1);
+    LL_USART_SetTransferBitOrder(USART1, LL_USART_BITORDER_LSBFIRST);
+    LL_USART_SetBaudRate(USART1, SystemCoreClock,
+                         LL_USART_OVERSAMPLING_16, 115200);
+    /*
+     * USART turn on
+     */
+    LL_USART_Enable(USART1);
+    while (!(LL_USART_IsActiveFlag_TEACK(USART1) &&
+             LL_USART_IsActiveFlag_REACK(USART1)));
 
     return;
 }
 
 
-void i2c_config(I2C_TypeDef *I2Cx)
+void i2c_config()
 {
-    if (I2Cx == I2C1)
-    {
-        /*
-         * Clock on the I2C port and configure it
-         */
-        // SCL - GPIOB6
-        LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
-        LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6,
-                           LL_GPIO_MODE_ALTERNATE);
-        LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6,
-                                 LL_GPIO_OUTPUT_OPENDRAIN);
+    /*
+     * Clock on the I2C port and configure it
+     */
+    // SCL - GPIOB6
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
+    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6,
+                       LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6,
+                             LL_GPIO_OUTPUT_OPENDRAIN);
 
-        LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_UP);
+    LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_UP);
 
-        LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_1);
-        LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6,
-                            LL_GPIO_SPEED_FREQ_HIGH);
+    LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_1);
+    LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6,
+                        LL_GPIO_SPEED_FREQ_HIGH);
 
-        // SDA - GPIOB7
-        LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7,
-                           LL_GPIO_MODE_ALTERNATE);
-        LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_7,
-                                 LL_GPIO_OUTPUT_OPENDRAIN);
+    // SDA - GPIOB7
+    LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7,
+                       LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_7,
+                             LL_GPIO_OUTPUT_OPENDRAIN);
 
-        LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_UP);
+    LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_UP);
 
-        LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_1);
-        LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7,
-                            LL_GPIO_SPEED_FREQ_HIGH);
-        /*
-         * Clock on the I2C peripheral and set it up
-         */
-        LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_SYSCLK);
-        LL_I2C_Disable(I2C1);
-        LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_I2C1);
-        LL_I2C_DisableAnalogFilter(I2C1);
-        LL_I2C_SetDigitalFilter(I2C1, 1);
-        /*
-         * Set I2C speed to 100 kHz, for further details refer
-         * to lecture
-         */
-        LL_I2C_SetTiming(I2C1, 0x2000090E);
-        LL_I2C_DisableClockStretching(I2C1);
-        LL_I2C_SetMasterAddressingMode(I2C1, LL_I2C_ADDRESSING_MODE_7BIT);
-        LL_I2C_SetMode(I2C1, LL_I2C_MODE_I2C);
-        LL_I2C_Enable(I2C1);
-    }
+    LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_1);
+    LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7,
+                        LL_GPIO_SPEED_FREQ_HIGH);
+    /*
+     * Clock on the I2C peripheral and set it up
+     */
+    LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_SYSCLK);
+    LL_I2C_Disable(I2C1);
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_I2C1);
+    LL_I2C_DisableAnalogFilter(I2C1);
+    LL_I2C_SetDigitalFilter(I2C1, 1);
+    /*
+     * Set I2C speed to 100 kHz, for further details refer
+     * to lecture
+     */
+    LL_I2C_SetTiming(I2C1, 0x2000090E);
+    LL_I2C_DisableClockStretching(I2C1);
+    LL_I2C_SetMasterAddressingMode(I2C1, LL_I2C_ADDRESSING_MODE_7BIT);
+    LL_I2C_SetMode(I2C1, LL_I2C_MODE_I2C);
+    LL_I2C_Enable(I2C1);
 
     return;
 }
