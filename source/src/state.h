@@ -52,7 +52,7 @@ typedef struct
 
     uint32_t crc;
 
-} state_msg_t;
+}__attribute__((packed, aligned(1))) state_msg_t;
 
 
 extern stateIMU_rsc_t stateIMU_rsc;

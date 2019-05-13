@@ -19,5 +19,6 @@ if __name__ == "__main__":
 
     thread = Thread()
     thread.new_record.connect(myapp.msg)
+    thread.start()
 
     sys.exit(app.exec_())

@@ -3,8 +3,8 @@ import serial
 
 
 ##############################################
-port = "/dev/ttyUSB0"    # порт для подключения
-baudrate = 115200   # частота передачи
+port = '/dev/ttyUSB0'   # порт для подключения
+baudrate = 115200       # частота передачи
 ##############################################
 
 class Packet:
@@ -55,7 +55,7 @@ class Connector:
                 print("port_opened")
                 return connection
             except IOError as e:
-                print("error")
+                print("error", e)
                 pass
 
     def bytes_to_int(self, bytes):
@@ -75,6 +75,12 @@ class Connector:
             packet.descr_val2 = self.bytes_to_int(self.read(packet.descr_val_size))
 
             if (packet.descr_val1 != 255) and (packet.descr_val2 != 254):
+                if (packet.descr_val2 == 255):
+                    packet.descr_val1 = 255
+                    packet.descr_val2 = self.bytes_to_int(self.read(packet.descr_val_size))
+                    # if (packet.descr_val2 == 254):
+                    packet = Packet()
+
                 print("Bad index", packet.descr_val1, packet.descr_val2)
             else: break
 
