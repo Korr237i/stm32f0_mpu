@@ -17,14 +17,11 @@
 #include "state.h"
 #include "systime.h"
 #include "initialise_hardware.h"
+#include "kinematic_unit.h"
 
-#include "../lib/xprintf.h"
+#include "library/xprintf.h"
 #include "drivers/mpu9255.h"
 #include "drivers/usart.h"
-
-
-// #define MPU         1
-// #define BUTTON
 
 
 // void EXTI0_1_IRQHandler()
@@ -67,8 +64,11 @@ int main(void)
     /*
      * Structures init
      */
-    memset(&stateIMU_rsc, 0x00, sizeof(stateIMU_rsc));
-    memset(&stateIMU_isc, 0x00, sizeof(stateIMU_isc));
+    memset(&stateIMU_rsc,       0x00, sizeof(stateIMU_rsc));
+    memset(&stateIMU_isc,       0x00, sizeof(stateIMU_isc));
+    memset(&stateIMU_isc_prev,  0x00, sizeof(stateIMU_isc_prev));
+    memset(&state_system,       0x00, sizeof(state_system));
+    memset(&state_system_prev,  0x00, sizeof(state_system_prev));
     state_msg_t msg = {};
 
 
@@ -78,19 +78,18 @@ int main(void)
     error = mpu9255_init();
     xprintf("mpu init error: %d\n", error);
 
-
-    int16_t raw_accelData[3] = {};
-    int16_t raw_gyroData[3] = {};
+    get_staticShifts();
+    IMU_updateDataAll();
+    _IMUtask_updateData();
 
     while(1)
     {
-        mpu9255_readIMU(raw_accelData,      raw_gyroData);
-        mpu9255_recalcAccel(raw_accelData,  stateIMU_rsc.accel);
-        mpu9255_recalcGyro(raw_gyroData,    stateIMU_rsc.gyro);
+        IMU_updateDataAll();
+        _IMUtask_updateData();
 
         stateMsg_fill(&msg);
         stateMsg_send(&msg);
-        // xprintf("crc: %d", msg.crc);
+        // xprintf("x: %d y: %d z: %d\n", (int)stateIMU_isc.coordinates[0], (int)stateIMU_isc.coordinates[1], (int)stateIMU_isc.coordinates[2]);
     }
 
     return 0;

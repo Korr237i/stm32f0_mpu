@@ -11,8 +11,12 @@
 
 
 
-stateIMU_rsc_t stateIMU_rsc = {};
-stateIMU_isc_t stateIMU_isc = {};
+stateIMU_rsc_t  stateIMU_rsc        = {};
+stateIMU_isc_t  stateIMU_isc        = {};
+stateIMU_isc_t  stateIMU_isc_prev   = {};
+state_system_t  state_system        = {};
+state_system_t  state_system_prev   = {};
+
 
 
 uint32_t crc32(uint8_t *buf, uint32_t len)
@@ -48,12 +52,12 @@ void stateMsg_fill(state_msg_t* msg)
 
     msg->number = number;
 
-    msg->time = getTime_s();
+    msg->time = state_system.time;
 
     for (uint8_t i = 0; i < 3; i++)
     {
         msg->accel[i]   = stateIMU_isc.accel[i];
-        msg->gyro[i]    = stateIMU_isc.gyro[i];
+        msg->gyro[i]    = stateIMU_rsc.gyro[i];
         msg->magn[i]    = stateIMU_isc.magn[i];
     }
 

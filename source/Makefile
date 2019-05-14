@@ -18,6 +18,7 @@ SOURCES_LIB = $(wildcard lib/*.c)
 
 SOURCES_C = $(wildcard src/*.c)
 SOURCES_C += $(wildcard src/drivers/*.c)
+SOURCES_C += $(wildcard src/library/*.c)
 
 SOURCES_C += $(SOURCES_CORE)
 SOURCES_C += $(SOURCES_PERIPH)

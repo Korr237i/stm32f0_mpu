@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QThread, pyqtSignal
 import serial
+import struct
 
 
 ##############################################
@@ -14,12 +15,12 @@ class Packet:
         self.descr_val_size = 1
 
         self.number = 0
-        self.time = 0
+        self.time = 0.0
 
-        self.accelData = [3]
-        self.gyroData = [3]
-        self.magnData = [3]
-        self.quaternion = [4]
+        self.accelData = []
+        self.gyroData = []
+        self.magnData = []
+        self.quaternion = []
         self.data_size = 8
 
         self.crc = 0
@@ -64,6 +65,17 @@ class Connector:
             result = result * 256 + int(b)
         return result
 
+    def bytes_to_float(self, bytes):
+        x = 0
+        [x] = struct.unpack('f', bytes)
+        return x
+
+    def bytes_to_double(self, bytes):
+        x = 0
+        [x] = struct.unpack('d', bytes)
+        return x
+
+
     def read(self, count):
         return self.connection.read(count)
 
@@ -78,35 +90,36 @@ class Connector:
                 if (packet.descr_val2 == 255):
                     packet.descr_val1 = 255
                     packet.descr_val2 = self.bytes_to_int(self.read(packet.descr_val_size))
-                    # if (packet.descr_val2 == 254):
-                    packet = Packet()
+
+                    if (packet.descr_val2 == 254):
+                        break
 
                 print("Bad index", packet.descr_val1, packet.descr_val2)
             else: break
 
         packet.number = self.bytes_to_int(self.read(packet.special_fields_size))
-        packet.time = self.bytes_to_int(self.read(packet.special_fields_size))
+        packet.time = self.bytes_to_float(self.read(packet.special_fields_size))
 
         for i in range(3):
-            packet.accelData = self.bytes_to_int(self.read(packet.data_size))
+            packet.accelData.append(self.bytes_to_double(self.read(packet.data_size)))
 
         for i in range(3):
-            packet.gyroData = self.bytes_to_int(self.read(packet.data_size))
+            packet.gyroData.append(self.bytes_to_double(self.read(packet.data_size)))
 
         for i in range(3):
-            packet.magnData = self.bytes_to_int(self.read(packet.data_size))
+            packet.magnData.append(self.bytes_to_double(self.read(packet.data_size)))
 
         for i in range(4):
-            packet.quaternion = self.bytes_to_int(self.read(packet.data_size))
+            packet.quaternion.append(self.bytes_to_double(self.read(packet.data_size)))
 
         packet.crc = self.bytes_to_int(self.read(packet.special_fields_size))
 
-        crc = packet.count_crc()
+        # crc = packet.count_crc()
 
-        if crc == packet.crc:
-            return packet
-        else:
-            print("Invalid CRC. Expected", crc, "found:", packet.crc)
+        # if crc == packet.crc:
+        return packet
+        # else:
+        #     print("Invalid CRC. Expected", crc, "found:", packet.crc)
 
     def close(self):
         self.connection.close()
@@ -123,7 +136,7 @@ class MsgAccumulator:
     def push_message(self, msg):
         self.accumulator.append(msg)
         if len(self.accumulator) >= self.batch_size:
-            self.signal.emit(self.accumulator)
+            self.signal.emit(self.accumulator)          # send all accumulator to slot @QtCore.pyqtSlot(list)
             self.accumulator = []
             # print('PUSH COMPLETED')
 
@@ -135,11 +148,13 @@ class Thread(QThread):
 
     def __init__(self):
         QThread.__init__(self)
-        self.record_accum = MsgAccumulator(10, self.new_record)
+        self.record_accum = MsgAccumulator(5, self.new_record)
 
     def run(self):
         print("Запускаюсь. Использую serial port")
         conn = Connector(con_port=port, con_baudrate=baudrate)
 
         while True:
-            self.record_accum.push_message(conn.parse_packet())
+            # pack = Packet()
+            pack = conn.parse_packet()
+            self.record_accum.push_message(pack)

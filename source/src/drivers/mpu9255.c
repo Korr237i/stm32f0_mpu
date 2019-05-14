@@ -252,7 +252,7 @@ void mpu9255_recalcCompass(const int16_t * raw_compassData, dataType * compassDa
 //  iauPmp(raw_data, offset_vector, compassData);
 //  iauRxp(transform_matrix, compassData, compassData);
 
-    compassData[0] = - (dataType)raw_compassData[1];
-    compassData[1] =   (dataType)raw_compassData[2];
-    compassData[2] = - (dataType)raw_compassData[0];
+    compassData[0] = (dataType)raw_compassData[0];
+    compassData[1] = (dataType)raw_compassData[1];
+    compassData[2] = (dataType)raw_compassData[2];
 }

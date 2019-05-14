@@ -15,6 +15,7 @@ typedef struct {
     dataType accel[3];
     dataType gyro[3];
     dataType magn[3];
+
 } stateIMU_rsc_t;
 
 
@@ -35,6 +36,16 @@ typedef struct {
 } stateIMU_isc_t;
 
 
+typedef struct {
+    float time;
+
+    dataType gyro_staticShift[3];
+    dataType accel_staticShift[3];
+    dataType zero_quaternion[4];
+
+} state_system_t;
+
+
 typedef struct
 {
     uint8_t descr_val1;     // 0xFF 0xFE
@@ -53,10 +64,13 @@ typedef struct
     uint32_t crc;
 
 }__attribute__((packed, aligned(1))) state_msg_t;
-
+// to make data alignment 1 byte
 
 extern stateIMU_rsc_t stateIMU_rsc;
 extern stateIMU_isc_t stateIMU_isc;
+extern stateIMU_isc_t stateIMU_isc_prev;
+extern state_system_t state_system;
+extern state_system_t  state_system_prev;
 
 
 void stateMsg_fill(state_msg_t* msg);

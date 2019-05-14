@@ -2,7 +2,7 @@
 
 #include "../../plib/stm32f0xx_ll_usart.h"
 
-#include "../../lib/xprintf.h"
+#include "../library/xprintf.h"
 #include "usart.h"
 
 

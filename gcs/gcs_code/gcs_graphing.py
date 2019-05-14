@@ -18,7 +18,7 @@ MESH_PATH = os.path.abspath('theplane.stl')
 class PlaneWidget(gl.GLViewWidget):
     def __init__(self, mesh_path, *args, **kwargs):
         super(PlaneWidget, self).__init__(*args, **kwargs)
-        self.setCameraPosition(distance=650)
+        self.setCameraPosition(distance=15)
         self.setBackgroundColor([120, 120, 120, 0])
         g = gl.GLGridItem()
         g.scale(2, 2, 1)
@@ -93,6 +93,8 @@ class MyWin(QtWidgets.QMainWindow):
         self.magn_x = []
         self.magn_y = []
         self.magn_z = []
+
+        self.time = []
 
         self.length = 150
         self.cut = 11
@@ -174,8 +176,8 @@ class MyWin(QtWidgets.QMainWindow):
 
             self.time.append(msgs[i].time)
 
-            # quat = pyquaternion.Quaternion(msgs[i].quaternion)
-            # self.plane_widget._update_rotation(quat)
+            quat = pyquaternion.Quaternion(msgs[i].quaternion)
+            self.plane_widget._update_rotation(quat)
 
 
         if len(self.time) > self.length:
@@ -203,5 +205,5 @@ class MyWin(QtWidgets.QMainWindow):
         self.gyro_z_plot.setData(x=self.time, y=self.gyro_z, pen=('b'), width=0.5)
 
         self.magn_x_plot.setData(x=self.time, y=self.magn_x, pen=('r'), width=0.5)
-        self.magn_x_plot.setData(x=self.time, y=self.magn_y, pen=('g'), width=0.5)
-        self.magn_x_plot.setData(x=self.time, y=self.magn_z, pen=('b'), width=0.5)
+        self.magn_y_plot.setData(x=self.time, y=self.magn_y, pen=('g'), width=0.5)
+        self.magn_z_plot.setData(x=self.time, y=self.magn_z, pen=('b'), width=0.5)
