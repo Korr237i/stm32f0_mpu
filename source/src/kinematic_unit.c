@@ -89,7 +89,7 @@ uint8_t get_accel_staticShift(dataType* gyro_staticShift, dataType* accel_static
         MadgwickAHRSupdate( quaternion,
                             gyro[0],    gyro[1],    gyro[2],
                             accel[0],   accel[1],   accel[2],
-                            magn[0],    magn[1],    magn[2],    time - time_prev, 10); //???
+                            magn[0],    magn[1],    magn[2],    time - time_prev, 5); //???
 
 		vect_rotate(accel, quaternion, accel_ISC);
 
