@@ -47,7 +47,7 @@
 #define Z_GYRO_KOEFF        1
 
 #define ACCEL_RANGE         1           //2g - 00, 4g - 01, 8g - 10, 16g - 11
-#define GYRO_RANGE          0           //250degps - 00, 500degps - 01, 1000degps - 10, 2000degps - 11
+#define GYRO_RANGE          1           //250degps - 00, 500degps - 01, 1000degps - 10, 2000degps - 11
 
 
 /*#################################################*/

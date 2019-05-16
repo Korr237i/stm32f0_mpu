@@ -21,7 +21,7 @@ class Packet:
         self.gyroData = []
         self.magnData = []
         self.quaternion = []
-        self.data_size = 8
+        self.data_size = 4#8
 
         self.crc = 0
         self.special_fields_size = 4     # size of number, time and crc
@@ -36,6 +36,7 @@ class Packet:
 class Connector:
     def __init__(self, con_port, con_baudrate):
         self.connection = self.uart_connection(_port=con_port, _baudrate=con_baudrate)
+        self.time_prev = 0
 
     def uart_connection(self, _port, _baudrate):
         while True:
@@ -100,17 +101,33 @@ class Connector:
         packet.number = self.bytes_to_int(self.read(packet.special_fields_size))
         packet.time = self.bytes_to_float(self.read(packet.special_fields_size))
 
-        for i in range(3):
-            packet.accelData.append(self.bytes_to_double(self.read(packet.data_size)))
+        print(packet.time - self.time_prev)
+        self.time_prev = packet.time
 
         for i in range(3):
-            packet.gyroData.append(self.bytes_to_double(self.read(packet.data_size)))
+            if (packet.data_size == 4):
+                packet.accelData.append(self.bytes_to_float(self.read(packet.data_size)))
+            if (packet.data_size == 8):
+                packet.accelData.append(self.bytes_to_double(self.read(packet.data_size)))
 
         for i in range(3):
-            packet.magnData.append(self.bytes_to_double(self.read(packet.data_size)))
+            if (packet.data_size == 4):
+                packet.gyroData.append(self.bytes_to_float(self.read(packet.data_size)))
+            if (packet.data_size == 8):
+                packet.gyroData.append(self.bytes_to_double(self.read(packet.data_size)))
+
+        for i in range(3):
+            if (packet.data_size == 4):
+                packet.magnData.append(self.bytes_to_float(self.read(packet.data_size)))
+            if (packet.data_size == 8):
+                packet.magnData.append(self.bytes_to_double(self.read(packet.data_size)))
 
         for i in range(4):
-            packet.quaternion.append(self.bytes_to_double(self.read(packet.data_size)))
+            if (packet.data_size == 4):
+                packet.quaternion.append(self.bytes_to_float(self.read(packet.data_size)))
+            if (packet.data_size == 8):
+                packet.quaternion.append(self.bytes_to_double(self.read(packet.data_size)))
+
 
         packet.crc = self.bytes_to_int(self.read(packet.special_fields_size))
 

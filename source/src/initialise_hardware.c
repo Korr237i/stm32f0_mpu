@@ -188,7 +188,7 @@ void i2c_config()
      * Set I2C speed to 100 kHz, for further details refer
      * to lecture
      */
-    LL_I2C_SetTiming(I2C1, 0x2000090E);
+    LL_I2C_SetTiming(I2C1, 0x50330309/*0x2000090E*/);
     LL_I2C_DisableClockStretching(I2C1);
     LL_I2C_SetMasterAddressingMode(I2C1, LL_I2C_ADDRESSING_MODE_7BIT);
     LL_I2C_SetMode(I2C1, LL_I2C_MODE_I2C);

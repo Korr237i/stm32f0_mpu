@@ -89,6 +89,7 @@ int main(void)
 
         stateMsg_fill(&msg);
         stateMsg_send(&msg);
+        // xprintf("ASA[0]: %d\n", state_system.magnASA[0]);
         // xprintf("x: %d y: %d z: %d\n", (int)stateIMU_isc.coordinates[0], (int)stateIMU_isc.coordinates[1], (int)stateIMU_isc.coordinates[2]);
     }
 

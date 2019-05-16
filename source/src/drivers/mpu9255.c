@@ -15,6 +15,7 @@
 
 #include "../state.h"
 #include "mpu9255.h"
+#include "../library/xprintf.h"
 
 // #include <sofa.h>
 
@@ -139,6 +140,7 @@ int mpu9255_init()
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 25,     (1 << 0)));   //Sample Rate Divider
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 26,     0b00000101));   //config (DLPF = 101)
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 28,     (0b00000000 | (ACCEL_RANGE << 3))));    //accel config (rate 4g = 01)
+    //  PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 28,     (0b00000000 | (ACCEL_RANGE << 4))));    //accel config (rate 8g = 10)
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 29,     0b00000100));   //accel config 2 (Fch_b = 0, DLPF = 100)
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 35,     0b00000000));   //FIFO enable (not enabled)
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 56,     0b00000000));   //interrupt enable (int disable = 0)
@@ -147,10 +149,21 @@ int mpu9255_init()
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 108,    0b00000000));   //power managment 2
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 27,     (0b00000000 | (GYRO_RANGE << 4)) ));    //gyro config (rate 500dps = 01, Fch_b = 00)
 
-    //compass init
+    //  Magnetometer init
+    static int8_t ASAX, ASAY, ASAZ;
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 55,     0b00000010));   //режим bypass on
     PROCESS_ERROR(mpu9255_WriteByte(COMPASS,        0x0A,   0b00010110));   //control 1
+    PROCESS_ERROR(mpu9255_ReadByte(COMPASS,        0x10,   (uint8_t*)&ASAX));   //ASAX
+    PROCESS_ERROR(mpu9255_ReadByte(COMPASS,        0x11,   (uint8_t*)&ASAY));   //ASAY
+    PROCESS_ERROR(mpu9255_ReadByte(COMPASS,        0x12,   (uint8_t*)&ASAZ));   //ASAZ
     PROCESS_ERROR(mpu9255_WriteByte(GYRO_AND_ACCEL, 55,     0b00000000));   //режим bypass off
+
+    //  Recalc magnetometer sensitivity adjustment values to floats to store them
+    state_system.magnASA[0] = (float)(ASAX + 128) / (256);
+    state_system.magnASA[1] = (float)(ASAY + 128) / (256);
+    state_system.magnASA[2] = (float)(ASAZ + 128) / (256);
+
+    // xprintf("%d %d %d\n", ASAX, ASAY, ASAZ);
 
 end:
     return error;
@@ -252,7 +265,7 @@ void mpu9255_recalcCompass(const int16_t * raw_compassData, dataType * compassDa
 //  iauPmp(raw_data, offset_vector, compassData);
 //  iauRxp(transform_matrix, compassData, compassData);
 
-    compassData[0] = (dataType)raw_compassData[0];
-    compassData[1] = (dataType)raw_compassData[1];
-    compassData[2] = (dataType)raw_compassData[2];
+    compassData[0] = (dataType)raw_compassData[0] * state_system.magnASA[0];
+    compassData[1] = (dataType)raw_compassData[1] * state_system.magnASA[1];
+    compassData[2] = (dataType)raw_compassData[2] * state_system.magnASA[2];
 }

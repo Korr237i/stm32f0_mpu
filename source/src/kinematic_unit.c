@@ -20,6 +20,7 @@
 #include "state.h"
 #include "systime.h"
 #include "library/MadgwickAHRS.h"
+#include "library/MahonyAHRS.h"
 #include "library/quaternion.h"
 #include "drivers/mpu9255.h"
 
@@ -33,7 +34,7 @@
 
 uint8_t get_gyro_staticShift(dataType* gyro_staticShift) {
 	uint8_t error = 0;
-	uint16_t zero_orientCnt = 200;
+	uint16_t zero_orientCnt = 4000;
 
 	//	находим статическое смещение гироскопа
 	for (int i = 0; i < zero_orientCnt; i++) {
@@ -59,13 +60,13 @@ end:
 
 uint8_t get_accel_staticShift(dataType* gyro_staticShift, dataType* accel_staticShift) {
 	uint8_t error = 0;
-	uint16_t zero_orientCnt = 100;
+	uint16_t zero_orientCnt = 300;
 	float time = 0, time_prev = getTime_s();
 
 	for (int i = 0; i < zero_orientCnt; i++) {
 		int16_t accelData[3] = {0, 0, 0};
 		int16_t gyroData[3] = {0, 0, 0};
-        int16_t compassData[3] = {0, 0, 0};
+        int16_t magnData[3] = {0, 0, 0};
 		dataType accel[3] = {0, 0, 0};
 		dataType accel_ISC[3] = {0, 0, 0};
 		dataType gyro[3] = {0, 0, 0};
@@ -74,10 +75,10 @@ uint8_t get_accel_staticShift(dataType* gyro_staticShift, dataType* accel_static
 
 		//	собираем данные
 		PROCESS_ERROR(mpu9255_readIMU(accelData, gyroData));
-        PROCESS_ERROR(mpu9255_readCompass(compassData));
+        PROCESS_ERROR(mpu9255_readCompass(magnData));
 		mpu9255_recalcGyro(gyroData, gyro);
 		mpu9255_recalcAccel(accelData, accel);
-        mpu9255_recalcCompass(compassData, magn);
+        mpu9255_recalcCompass(magnData, magn);
 
 		time = getTime_s();
 		for (int k = 0; k < 3; k++) {
@@ -89,7 +90,7 @@ uint8_t get_accel_staticShift(dataType* gyro_staticShift, dataType* accel_static
         MadgwickAHRSupdate( quaternion,
                             gyro[0],    gyro[1],    gyro[2],
                             accel[0],   accel[1],   accel[2],
-                            magn[0],    magn[1],    magn[2],    time - time_prev, 10); //???
+                            magn[0],    magn[1],    magn[2],    time - time_prev, 0.6/*0.041*/); //???
 
 		vect_rotate(accel, quaternion, accel_ISC);
 
@@ -113,15 +114,15 @@ int IMU_updateDataAll() {
 	int error = 0;
 	int16_t accelData[3] = {0, 0, 0};
 	int16_t gyroData[3] = {0, 0, 0};
-	int16_t compassData[3] = {0, 0, 0};
+	int16_t magnData[3] = {0, 0, 0};
 	dataType accel[3] = {0, 0, 0}; dataType gyro[3] = {0, 0, 0}; dataType magn[3] = {0, 0, 0};
 
 	//	собираем данные
 	PROCESS_ERROR(mpu9255_readIMU(accelData, gyroData));
-	PROCESS_ERROR(mpu9255_readCompass(compassData));
+	PROCESS_ERROR(mpu9255_readCompass(magnData));
 	mpu9255_recalcAccel(accelData, accel);
 	mpu9255_recalcGyro(gyroData, gyro);
-	mpu9255_recalcCompass(compassData, magn);
+	mpu9255_recalcCompass(magnData, magn);
 
 	float _time = getTime_s();
 	state_system.time = _time;
@@ -139,10 +140,15 @@ int IMU_updateDataAll() {
 	dataType quaternion[4] = {0, 0, 0, 0};
 	float dt = _time - state_system_prev.time;
 
-    dataType beta = 1;
-	MadgwickAHRSupdateIMU(quaternion, gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], dt, 1);
-
+    dataType beta = 2.5;
+	// MadgwickAHRSupdateIMU(quaternion, gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], dt, beta);
     // MadgwickAHRSupdate(quaternion, gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], magn[0], magn[1], magn[2], dt, beta);
+
+
+    dataType twoKp = 10;
+    dataType twoKi = 0.0;
+    MahonyAHRSupdateIMU(quaternion, gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], dt, twoKp, twoKi);
+    // MahonyAHRSupdate(quaternion, gyro[0], gyro[1], gyro[2], accel[0], accel[1], accel[2], magn[0], magn[1], magn[2], dt, twoKp, twoKi);
 
 	//	копируем кватернион в глобальную структуру
 	stateIMU_isc.quaternion[0] = quaternion[0];

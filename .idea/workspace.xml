@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py" line="129" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6fad642f-af09-48f9-986a-4acbd8e2f31d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gcs/gcs_code/gcs_graphing.py" beforeDir="false" afterPath="$PROJECT_DIR$/gcs/gcs_code/gcs_graphing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py" beforeDir="false" afterPath="$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/source/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/build/stm32f0_mpu.asm" beforeDir="false" afterPath="$PROJECT_DIR$/source/build/stm32f0_mpu.asm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/build/stm32f0_mpu.bin" beforeDir="false" afterPath="$PROJECT_DIR$/source/build/stm32f0_mpu.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/lib/xprintf.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/lib/xprintf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/(10DOF IMU Sensor) MPU-9255 - Register Map and  Descriptions.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/(10DOF IMU Sensor) MPU-9255 - Спецификация.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/(10DOF IMU Sensor) Магнетометр AK8963 - Спецификация.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/GDB_commands.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/armv6m_arm.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/cortex_m0_gug.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/cortex_m0_ll.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/cortex_m0_trm.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/center.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/edge.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/graph.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/pwm.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/table.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/images/zoomer.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/smt32f0_pm.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/ssd1306.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/stm32f051_family.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/stm32f0discovery.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/docs/stm32f0xx_rm.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/source/src/drivers/mpu9255.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/drivers/mpu9255.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/drivers/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/drivers/usart.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/drivers/mpu9255.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/drivers/mpu9255.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/initialise_hardware.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/initialise_hardware.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/kinematic_unit.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/kinematic_unit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/library/MadgwickAHRS.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/library/MadgwickAHRS.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/state.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/state.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/src/state.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/state.h" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="109" column="85" selection-start-line="109" selection-start-column="85" selection-end-line="109" selection-end-column="85" />
+            <state relative-caret-position="359">
+              <caret line="126" selection-start-line="126" selection-end-line="126" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -48,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gcs/gcs_code/gcs_graphing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3366">
-              <caret line="208" column="19" selection-start-line="208" selection-start-column="19" selection-end-line="208" selection-end-column="19" />
+            <state relative-caret-position="-51">
+              <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -87,7 +108,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -110,6 +130,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -129,7 +150,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="gcs_serial" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="stm32f0_mpu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gcs/gcs_code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="stm32f0_mpu" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,6 +196,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.gcs_serial" />
       </list>
     </recent_temporary>
   </component>
@@ -179,13 +222,13 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3410042" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3410042" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3294979" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -245,8 +288,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gcs/gcs_code/gcs_graphing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3366">
-          <caret line="208" column="19" selection-start-line="208" selection-start-column="19" selection-end-line="208" selection-end-column="19" />
+        <state relative-caret-position="-51">
+          <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -255,8 +298,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gcs/gcs_code/gcs_serial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="109" column="85" selection-start-line="109" selection-start-column="85" selection-end-line="109" selection-end-column="85" />
+        <state relative-caret-position="359">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define dataType double
+#define dataType float
 
 // if error set value and go to end
 #define PROCESS_ERROR(x) if (0 != (error = (x))) { goto end; }
@@ -42,6 +42,8 @@ typedef struct {
     dataType gyro_staticShift[3];
     dataType accel_staticShift[3];
     dataType zero_quaternion[4];
+
+    dataType magnASA[3];
 
 } state_system_t;
 
