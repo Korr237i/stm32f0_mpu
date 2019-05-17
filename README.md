@@ -1,5 +1,5 @@
 # STM32F0 MPU
-### STM32F0 project based on [DREC](https://mipt.ru/drec/) course.
+### STM32F0 project based on [DREC course](https://github.com/edosedgar/stm32f0_ARM).
 The idea of the project is to get data from MPU9255 IMU and use [Sebastian Madgwick's algorithm](http://x-io.co.uk/res/doc/madgwick_internal_report.pdf) with quaternions to plot device's orientation.
 
 ## Folders
