@@ -5,7 +5,7 @@ The idea of the project is to get data from MPU9255 IMU and use [Sebastian Madgw
 ## Folders
 Source folder includes needed files for stm32f0 and source code of the project.
 
-GCS folder - ground control system that allows you to plot graphs and device's orientation (was made by [dll31](https://github.com/dll31)).
+GCS folder - ground control system that allows you to plot graphs and device's orientation (made by [dll31](https://github.com/dll31)).
 
 ## GCS installation in PyCharm.
 1. Move to gcs folder
